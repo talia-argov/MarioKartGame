@@ -42,12 +42,11 @@ public class BasicGameApp implements Runnable {
 
         //variable and objects
         //create (construct) the objects needed for the game and load up
-        shyguyPic = Toolkit.getDefaultToolkit().getImage("shyguy2.png"); //load the picture
+        shyguyPic = Toolkit.getDefaultToolkit().getImage("shyguy2.jpeg"); //load the picture
         shyguy = new MarioKart("shyguy",200,100); //construct
-        shyguy.dx = 0;
 
         toadPic = Toolkit.getDefaultToolkit().getImage("toad.png");
-        toad = new MarioKart("toad",400,200);
+        toad = new MarioKart("toad",200,200);
 
     } // end BasicGameApp constructor
 
@@ -121,6 +120,7 @@ public class BasicGameApp implements Runnable {
 
         //draw the image of the astronaut
         g.drawImage(shyguyPic, shyguy.xpos, shyguy.ypos, shyguy.width, shyguy.height, null);
+        g.drawRect(shyguy.xpos, shyguy.ypos, shyguy.width, shyguy.height);
 
         g.drawImage(toadPic, toad.xpos, toad.ypos,toad.width, toad.height, null);
 
