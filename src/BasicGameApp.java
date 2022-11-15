@@ -63,6 +63,8 @@ public class BasicGameApp implements Runnable {
         //for the moment we will loop things forever.
         while (true) {
             moveThings();  //move all the game objects
+            crash();
+            crashSize();
             render();  // paint the graphics
             pause(20); // sleep for 10 ms
         }
@@ -74,6 +76,26 @@ public class BasicGameApp implements Runnable {
         toad.move();
         shyguy.bounce();
         toad.wrap();
+    }
+
+    public void crash(){
+        //if shyguy and toad intersect
+        if(shyguy.rec.intersects(toad.rec)){
+            shyguy.dx = -shyguy.dx;
+            toad.dx = -toad.dx;
+        }
+        if (shyguy.rec.intersects(toad.rec)){
+            shyguy.dy =  -shyguy.dy;
+            toad.dy = -toad.dy;
+        }
+    }
+
+    public void crashSize(){
+        //if shyguy and toad intersect
+        if(shyguy.rec.intersects(toad.rec)){
+
+        }
+
     }
 
     //Pauses or sleeps the computer for the amount specified in milliseconds
@@ -120,9 +142,11 @@ public class BasicGameApp implements Runnable {
 
         //draw the image of the astronaut
         g.drawImage(shyguyPic, shyguy.xpos, shyguy.ypos, shyguy.width, shyguy.height, null);
-        g.drawRect(shyguy.xpos, shyguy.ypos, shyguy.width, shyguy.height);
+        g.setColor(new Color(20,100,200));
+        g.drawRect(shyguy.rec.x, shyguy.rec.y, shyguy.rec.width, shyguy.rec.height);
 
         g.drawImage(toadPic, toad.xpos, toad.ypos,toad.width, toad.height, null);
+        g.drawRect(toad.rec.x, toad.rec.y, toad.rec.width, toad.rec.height);
 
         g.dispose();
         bufferStrategy.show();

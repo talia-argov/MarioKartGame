@@ -1,3 +1,5 @@
+import java.awt.*;
+
 public class MarioKart {
 
     //VARIABLE DECLARATION SECTION
@@ -10,6 +12,7 @@ public class MarioKart {
     public int width;                 //the width of the hero image
     public int height;                //the height of the hero image
     public boolean isAlive;           //a boolean to denote if the hero is alive or dead
+    public Rectangle rec;
 
 
     //This is a constructor that takes 3 parameters.
@@ -23,6 +26,7 @@ public class MarioKart {
         width = 60;
         height = 60;
         isAlive = true;
+        rec = new Rectangle(xpos, ypos, width, height);
 
         System.out.println(xpos + " " + ypos);
 
@@ -45,6 +49,8 @@ public class MarioKart {
         if (ypos <= 0 - height || ypos >= 700 - height) {
             dy = -dy;
         }
+        rec = new Rectangle(xpos, ypos, width, height);
+
     }
 
     public void wrap() {
@@ -65,7 +71,17 @@ public class MarioKart {
             ypos = 700;
 
         }
+        rec = new Rectangle(xpos, ypos, width, height);
+
     }
+
+    public void changeSize(){
+        if(shyguy.rec.intersects(toad.rec){
+            int width(10);
+            int height(10);
+        }
+    }
+
 }
 
 
