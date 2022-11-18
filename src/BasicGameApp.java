@@ -20,11 +20,14 @@ public class BasicGameApp implements Runnable {
     public BufferStrategy bufferStrategy;
     public Image shyguyPic;
     public Image toadPic;
+    public Image bananaPic;
+    public Image backgroundPic;
 
     //Declare the objects used in the program
     //These are things that are made up of more than one variable type
     public MarioKart shyguy;
     public MarioKart toad;
+    public MarioKart banana;
 
     // Main method definition
     // This is the code that runs first and automatically
@@ -42,11 +45,16 @@ public class BasicGameApp implements Runnable {
 
         //variable and objects
         //create (construct) the objects needed for the game and load up
-        shyguyPic = Toolkit.getDefaultToolkit().getImage("shyguy2.jpeg"); //load the picture
+        shyguyPic = Toolkit.getDefaultToolkit().getImage("shyguy2.png"); //load the picture
         shyguy = new MarioKart("shyguy",200,100); //construct
 
         toadPic = Toolkit.getDefaultToolkit().getImage("toad.png");
         toad = new MarioKart("toad",200,200);
+
+        bananaPic = Toolkit.getDefaultToolkit().getImage("banana2.png");
+        banana = new MarioKart("banana",500,500);
+
+        backgroundPic = Toolkit.getDefaultToolkit().getImage("marioKartbackground.png");
 
     } // end BasicGameApp constructor
 
@@ -64,7 +72,6 @@ public class BasicGameApp implements Runnable {
         while (true) {
             moveThings();  //move all the game objects
             crash();
-            crashSize();
             render();  // paint the graphics
             pause(20); // sleep for 10 ms
         }
@@ -74,8 +81,10 @@ public class BasicGameApp implements Runnable {
         //calls the move( ) code in the objects
         shyguy.move();
         toad.move();
+        banana.move();
         shyguy.bounce();
         toad.wrap();
+        banana.bounce();
     }
 
     public void crash(){
@@ -88,15 +97,12 @@ public class BasicGameApp implements Runnable {
             shyguy.dy =  -shyguy.dy;
             toad.dy = -toad.dy;
         }
-    }
-
-    public void crashSize(){
-        //if shyguy and toad intersect
         if(shyguy.rec.intersects(toad.rec)){
-
+            shyguy.grow();
+            toad.grow();
         }
-
     }
+
 
     //Pauses or sleeps the computer for the amount specified in milliseconds
     public void pause(int time ) {
@@ -141,12 +147,18 @@ public class BasicGameApp implements Runnable {
         g.clearRect(0, 0, WIDTH, HEIGHT);
 
         //draw the image of the astronaut
+
+        g.drawImage(backgroundPic,0,0,WIDTH,HEIGHT,null);
+
         g.drawImage(shyguyPic, shyguy.xpos, shyguy.ypos, shyguy.width, shyguy.height, null);
         g.setColor(new Color(20,100,200));
         g.drawRect(shyguy.rec.x, shyguy.rec.y, shyguy.rec.width, shyguy.rec.height);
 
         g.drawImage(toadPic, toad.xpos, toad.ypos,toad.width, toad.height, null);
         g.drawRect(toad.rec.x, toad.rec.y, toad.rec.width, toad.rec.height);
+
+        g.drawImage(bananaPic, banana.xpos, banana.ypos, banana.width,banana.height, null);
+        g.drawRect(banana.rec.x, banana.rec.y, banana.rec.width, banana.rec.height);
 
         g.dispose();
         bufferStrategy.show();

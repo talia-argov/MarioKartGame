@@ -8,9 +8,9 @@ public class MarioKart {
     public int xpos;                  //the x position
     public int ypos;                  //the y position
     public int dx = 1;                    //the speed of the hero in the x direction
-    public int dy = 1;                    //the speed of the hero in the y direction
-    public int width;                 //the width of the hero image
-    public int height;                //the height of the hero image
+    public int dy = 1;                   //the speed of the hero in the y direction
+    public int width;                   //the width of the hero image
+    public int height;                 //the height of the hero image
     public boolean isAlive;           //a boolean to denote if the hero is alive or dead
     public Rectangle rec;
 
@@ -21,6 +21,8 @@ public class MarioKart {
         name = pName;
         xpos = pXpos;
         ypos = pYpos;
+        xpos = (int)(Math.random()*400+100);
+        ypos = (int)(Math.random()*150+50);
         dx = 1;
         dy = -1;
         width = 60;
@@ -58,31 +60,33 @@ public class MarioKart {
         xpos = xpos + dx;
         ypos = ypos + dy;
 
-        if (xpos == 1000) {
+        if (xpos >= 1000 && dx > 0) { // right wall
             xpos = 0;
         }
-        if (xpos <= -width) { //left wall
+        if (xpos <= -width && dx < 0) { //left wall
             xpos = 1000;
         }
-        if (ypos >= 700) { //bottom wall
+        if (ypos >= 700 && dy > 0) { //bottom wall
+            System.out.println(-height);
             ypos = -height;
         }
-        if (ypos <= -height) { //top wall
+        if (ypos <= -height && dy < 0) { //top wall
+            System.out.println("high");
             ypos = 700;
-
         }
+
+        System.out.println(ypos);
+
         rec = new Rectangle(xpos, ypos, width, height);
 
     }
 
-    public void changeSize(){
-        if(shyguy.rec.intersects(toad.rec){
-            int width(10);
-            int height(10);
-        }
+    public void grow(){
+        width = (int)(width*1.1);
+        height = (int)(height*1.1);
+    }
     }
 
-}
 
 
 
