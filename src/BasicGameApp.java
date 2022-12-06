@@ -29,6 +29,9 @@ public class BasicGameApp implements Runnable {
     public MarioKart toad;
     public MarioKart banana;
 
+    public int growthfactor=10;
+    public int angle=1;
+
     // Main method definition
     // This is the code that runs first and automatically
     public static void main(String[] args) {
@@ -49,10 +52,10 @@ public class BasicGameApp implements Runnable {
         shyguy = new MarioKart("shyguy",100,100); //construct
 
         toadPic = Toolkit.getDefaultToolkit().getImage("toad.png");
-        toad = new MarioKart("toad",600,200);
+        toad = new MarioKart("toad",150,600);
 
         bananaPic = Toolkit.getDefaultToolkit().getImage("banana2.png");
-        banana = new MarioKart("banana",900,600);
+        banana = new MarioKart("banana",100,200);
 
         backgroundPic = Toolkit.getDefaultToolkit().getImage("marioKartbackground.png");
 
@@ -83,8 +86,8 @@ public class BasicGameApp implements Runnable {
         toad.move();
         banana.move();
         shyguy.bounce();
-        toad.wrap();
-        banana.bounce();
+        toad.bounce();
+        banana.wrap();
     }
 
     public void crash(){
@@ -92,10 +95,16 @@ public class BasicGameApp implements Runnable {
         if(shyguy.rec.intersects(toad.rec)&& shyguy.isCrashing == false){
             System.out.println("CRASH");
             shyguy.isCrashing = true;
-            shyguy.width = shyguy.width*2;
-            shyguy.height = shyguy.height*2;
+            shyguy.width = shyguy.width+growthfactor;
+            shyguy.height = shyguy.height+growthfactor;
             shyguy.dx = -shyguy.dx;
             toad.dx = -toad.dx;
+            if(shyguy.width>=100){
+                growthfactor=growthfactor*-1;
+            }
+            if(shyguy.width<=50){
+                growthfactor=growthfactor*-1;
+            }
         }
         if(!shyguy.rec.intersects(toad.rec)){
             shyguy.isCrashing = false;
@@ -107,7 +116,7 @@ public class BasicGameApp implements Runnable {
         }
 
       //  if(toad.rec.intersects(banana.rec)){
-            //toad spins when it crashes with banana
+            //toad and shyguy spin when it crashes with banana
     //}
 
 
@@ -161,6 +170,10 @@ public class BasicGameApp implements Runnable {
 
         //draw the image of the astronaut
 
+        // Rotating image by degrees using toradians()
+        // method
+        // and setting new dimension t it
+
         g.drawImage(backgroundPic,0,0,WIDTH,HEIGHT,null);
 
         g.drawImage(shyguyPic, shyguy.xpos, shyguy.ypos, shyguy.width, shyguy.height, null);
@@ -168,6 +181,9 @@ public class BasicGameApp implements Runnable {
    //     g.drawRect(shyguy.rec.x, shyguy.rec.y, shyguy.rec.width, shyguy.rec.height);
 
         g.drawImage(toadPic, toad.xpos, toad.ypos,toad.width, toad.height, null);
+
+        angle++;
+
      //   g.drawRect(toad.rec.x, toad.rec.y, toad.rec.width, toad.rec.height);
 
         g.drawImage(bananaPic, banana.xpos, banana.ypos, banana.width,banana.height, null);
