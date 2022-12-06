@@ -12,8 +12,8 @@ public class MarioKart {
     public int width;                   //the width of the hero image
     public int height;                 //the height of the hero image
     public boolean isAlive;           //a boolean to denote if the hero is alive or dead
+    public boolean isCrashing = false;
     public Rectangle rec;
-
 
     //This is a constructor that takes 3 parameters.
     // This allows us to specify the hero's name and position when we build it.
@@ -81,11 +81,17 @@ public class MarioKart {
 
     }
 
+    public void spin(){
+        xpos = xpos + dx;
+        ypos = ypos + dy;
+        //haven't yet figure out how to make 'spin' method
+    }
+
     public void grow(){
         width = (int)(width*1.1);
         height = (int)(height*1.1);
     }
-    }
+}
 
 
 

@@ -46,13 +46,13 @@ public class BasicGameApp implements Runnable {
         //variable and objects
         //create (construct) the objects needed for the game and load up
         shyguyPic = Toolkit.getDefaultToolkit().getImage("shyguy2.png"); //load the picture
-        shyguy = new MarioKart("shyguy",200,100); //construct
+        shyguy = new MarioKart("shyguy",100,100); //construct
 
         toadPic = Toolkit.getDefaultToolkit().getImage("toad.png");
-        toad = new MarioKart("toad",200,200);
+        toad = new MarioKart("toad",600,200);
 
         bananaPic = Toolkit.getDefaultToolkit().getImage("banana2.png");
-        banana = new MarioKart("banana",500,500);
+        banana = new MarioKart("banana",900,600);
 
         backgroundPic = Toolkit.getDefaultToolkit().getImage("marioKartbackground.png");
 
@@ -89,18 +89,31 @@ public class BasicGameApp implements Runnable {
 
     public void crash(){
         //if shyguy and toad intersect
-        if(shyguy.rec.intersects(toad.rec)){
+        if(shyguy.rec.intersects(toad.rec)&& shyguy.isCrashing == false){
+            System.out.println("CRASH");
+            shyguy.isCrashing = true;
+            shyguy.width = shyguy.width*2;
+            shyguy.height = shyguy.height*2;
             shyguy.dx = -shyguy.dx;
             toad.dx = -toad.dx;
         }
+        if(!shyguy.rec.intersects(toad.rec)){
+            shyguy.isCrashing = false;
+        }
+
         if (shyguy.rec.intersects(toad.rec)){
             shyguy.dy =  -shyguy.dy;
             toad.dy = -toad.dy;
         }
-        if(shyguy.rec.intersects(toad.rec)){
-            shyguy.grow();
-            toad.grow();
-        }
+
+      //  if(toad.rec.intersects(banana.rec)){
+            //toad spins when it crashes with banana
+    //}
+
+
+       // if(shyguy.rec.intersects(toad.rec)){
+         //   shyguy.grow()
+      //  }
     }
 
 
@@ -152,13 +165,14 @@ public class BasicGameApp implements Runnable {
 
         g.drawImage(shyguyPic, shyguy.xpos, shyguy.ypos, shyguy.width, shyguy.height, null);
         g.setColor(new Color(20,100,200));
-        g.drawRect(shyguy.rec.x, shyguy.rec.y, shyguy.rec.width, shyguy.rec.height);
+   //     g.drawRect(shyguy.rec.x, shyguy.rec.y, shyguy.rec.width, shyguy.rec.height);
 
         g.drawImage(toadPic, toad.xpos, toad.ypos,toad.width, toad.height, null);
-        g.drawRect(toad.rec.x, toad.rec.y, toad.rec.width, toad.rec.height);
+     //   g.drawRect(toad.rec.x, toad.rec.y, toad.rec.width, toad.rec.height);
 
         g.drawImage(bananaPic, banana.xpos, banana.ypos, banana.width,banana.height, null);
-        g.drawRect(banana.rec.x, banana.rec.y, banana.rec.width, banana.rec.height);
+       // g.drawRect(banana.rec.x, banana.rec.y, banana.rec.width, banana.rec.height);
+
 
         g.dispose();
         bufferStrategy.show();
