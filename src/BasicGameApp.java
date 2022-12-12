@@ -18,10 +18,16 @@ public class BasicGameApp implements Runnable {
     public JPanel panel;
 
     public BufferStrategy bufferStrategy;
+    public Image backgroundPic;
     public Image shyguyPic;
     public Image toadPic;
     public Image bananaPic;
-    public Image backgroundPic;
+    public Image numberonePic;
+    public Image numbertwoPic;
+    public Image numberthreePic;
+    public SoundFile bananaPeel;
+
+
 
     //Declare the objects used in the program
     //These are things that are made up of more than one variable type
@@ -31,6 +37,7 @@ public class BasicGameApp implements Runnable {
 
     public int growthfactor=10;
     public int angle=1;
+    public double starttime;
 
     // Main method definition
     // This is the code that runs first and automatically
@@ -52,12 +59,14 @@ public class BasicGameApp implements Runnable {
         shyguy = new MarioKart("shyguy",100,100); //construct
 
         toadPic = Toolkit.getDefaultToolkit().getImage("toad.png");
-        toad = new MarioKart("toad",150,600);
+        toad = new MarioKart("toad",400,400);
 
         bananaPic = Toolkit.getDefaultToolkit().getImage("banana2.png");
-        banana = new MarioKart("banana",100,200);
+        banana = new MarioKart("banana",400,100);
 
         backgroundPic = Toolkit.getDefaultToolkit().getImage("marioKartbackground.png");
+
+        bananaPeel = new SoundFile("bananaPeel.wav");
 
     } // end BasicGameApp constructor
 
@@ -71,8 +80,10 @@ public class BasicGameApp implements Runnable {
     // this is the code that plays the game after you set things up
     public void run() {
 
+        starttime = System.currentTimeMillis();
+
         //for the moment we will loop things forever.
-        while (true) {
+        while (System.currentTimeMillis()>30000) {
             moveThings();  //move all the game objects
             crash();
             render();  // paint the graphics
@@ -98,11 +109,19 @@ public class BasicGameApp implements Runnable {
             shyguy.width = shyguy.width+growthfactor;
             shyguy.height = shyguy.height+growthfactor;
             shyguy.dx = -shyguy.dx;
+            toad.width = toad.width+growthfactor;
+            toad.height = toad.height+growthfactor;
             toad.dx = -toad.dx;
-            if(shyguy.width>=100){
+            if(shyguy.width>=30){
                 growthfactor=growthfactor*-1;
             }
-            if(shyguy.width<=50){
+            if(shyguy.width<=10){
+                growthfactor=growthfactor*-1;
+            }
+            if(toad.width>=30){
+                growthfactor=growthfactor*-1;
+            }
+            if(toad.width<=10){
                 growthfactor=growthfactor*-1;
             }
         }
@@ -115,14 +134,13 @@ public class BasicGameApp implements Runnable {
             toad.dy = -toad.dy;
         }
 
-      //  if(toad.rec.intersects(banana.rec)){
-            //toad and shyguy spin when it crashes with banana
-    //}
+        if (shyguy.rec.intersects(banana.rec)){
+            bananaPeel.play();
+        }
+        if (toad.rec.intersects(banana.rec)){
+            bananaPeel.play();
+        }
 
-
-       // if(shyguy.rec.intersects(toad.rec)){
-         //   shyguy.grow()
-      //  }
     }
 
 
@@ -189,6 +207,9 @@ public class BasicGameApp implements Runnable {
         g.drawImage(bananaPic, banana.xpos, banana.ypos, banana.width,banana.height, null);
        // g.drawRect(banana.rec.x, banana.rec.y, banana.rec.width, banana.rec.height);
 
+        g.drawImage(shyguyPic, shyguy.xpos, shyguy.ypos, shyguy.width, shyguy.height, null);
+        g.setColor(new Color(20,100,200));
+        //     g.drawRect(shyguy.rec.x, shyguy.rec.y, shyguy.rec.width, shyguy.rec.height);
 
         g.dispose();
         bufferStrategy.show();

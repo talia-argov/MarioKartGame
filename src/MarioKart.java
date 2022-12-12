@@ -1,4 +1,10 @@
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
 import java.awt.*;
+import java.io.File;
+import java.io.IOException;
 
 public class MarioKart {
 
@@ -48,7 +54,7 @@ public class MarioKart {
         if (xpos >= 1000 - width || xpos <= 0) { //right and left wall
             dx = -dx;
         }
-        if (ypos <= 0 - height || ypos >= 700 - height) {
+        if (ypos <= 60 - height || ypos >= 700 - height) {
             dy = -dy;
         }
         rec = new Rectangle(xpos, ypos, width, height);
@@ -70,7 +76,7 @@ public class MarioKart {
             System.out.println(-height);
             ypos = -height;
         }
-        if (ypos <= -height && dy < 0) { //top wall
+        if (ypos <= -height && dy < 60) { //top wall
             System.out.println("high");
             ypos = 700;
         }
@@ -91,8 +97,6 @@ public class MarioKart {
         width = (int)(width*1.1);
         height = (int)(height*1.1);
     }
-}
-
-
+ }
 
 
