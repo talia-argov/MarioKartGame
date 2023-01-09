@@ -22,9 +22,6 @@ public class BasicGameApp implements Runnable {
     public Image shyguyPic;
     public Image toadPic;
     public Image bananaPic;
-    public Image numberonePic;
-    public Image numbertwoPic;
-    public Image numberthreePic;
     public SoundFile bananaPeel;//hello
 
 

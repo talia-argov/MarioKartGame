@@ -20,6 +20,10 @@ public class MarioKart {
     public boolean isAlive;           //a boolean to denote if the hero is alive or dead
     public boolean isCrashing = false;
     public Rectangle rec;
+    public boolean right;
+    public boolean left;
+    public boolean down;
+    public boolean up;
 
     //This is a constructor that takes 3 parameters.
     // This allows us to specify the hero's name and position when we build it.
@@ -97,6 +101,36 @@ public class MarioKart {
         width = (int)(width*1.1);
         height = (int)(height*1.1);
     }
+
+    public void direction() {
+
+        if(right){
+            xpos = xpos +dx;
+            if(xpos>1000-width){
+                xpos = 1000-width;
+            }
+        }
+
+        if(left){
+            xpos = xpos -dx;
+            if(xpos<0+width){
+                xpos = 0+width;
+            }
+        }
+
+        if(down){
+            ypos = ypos +dy;
+            if(ypos>700-height){
+                ypos = 700-height;
+            }
+        }
+
+        if(up){
+            ypos = ypos -dy;
+            if(ypos<=0){
+                ypos = 1;
+            }
+        }
  }
 
 
